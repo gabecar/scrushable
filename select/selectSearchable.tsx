@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import "./index.css";
 import SearchableList, {
@@ -23,108 +23,95 @@ type PropsType<I> = {
   disable?: (item: WithItemBaseType<I>) => boolean;
 };
 
-type StateType<I> = {
-  filteredItems: Array<WithItemBaseType<I>>;
-  value: string;
-};
-
 const debouncingTime = 100;
 
-export class SelectSearchable<SearchItemsType> extends React.Component<
-  PropsType<SearchItemsType>,
-  StateType<SearchItemsType>
-> {
-  timer: number = 0;
-  inputRef: React.RefObject<HTMLInputElement>;
+export default function SelectSearchable<SearchItemsType>({
+  items,
+  placeholder,
+  css,
+  noOptionsMessage,
+  option,
+  async,
+  onSelectedItem,
+  disable
+}: PropsType<SearchItemsType>) {
+  const [filteredItems, setFilteredItems] = useState<
+    Array<WithItemBaseType<SearchItemsType>>
+  >(items);
+  const [value, setValue] = useState<string>("");
 
-  constructor(props: PropsType<SearchItemsType>) {
-    super(props);
-    this.inputRef = React.createRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-    this.state = {
-      filteredItems: this.props.items,
-      value: ""
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     window.setTimeout(() => {
-      this.inputRef.current && this.inputRef.current.focus();
+      inputRef.current && inputRef.current.focus();
     }, debouncingTime);
-  }
+  }, []);
 
-  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ value: e.target.value }, () => {
-      if (!this.state.value) {
-        this.setState({ filteredItems: this.props.items });
-        return;
-      }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let timer: number = 0;
 
-      if (this.props.async && this.state.value) {
-        clearTimeout(this.timer);
+    setValue(e.target.value);
+    if (!value) {
+      setFilteredItems(items);
+      return;
+    }
 
-        this.timer = window.setTimeout(() => {
-          this.props.async &&
-            this.props
-              .async(this.state.value)
-              .then((items: Array<WithItemBaseType<SearchItemsType>>) =>
-                items.length > 0
-                  ? this.setState({
-                      filteredItems: items.map(
-                        (item: WithItemBaseType<SearchItemsType>) => ({
-                          ...item
-                        })
-                      )
-                    })
-                  : this.setState({ filteredItems: [] })
-              )
-              .catch(() => {});
-        }, debouncingTime);
-        return;
-      }
+    if (async && value) {
+      clearTimeout(timer);
 
-      if (this.state.value) {
-        const filteredItems = this.props.items.filter(
-          (item: WithItemBaseType<SearchItemsType>) =>
-            removeAccents(item.label)
-              .toLowerCase()
-              .match(removeAccents(this.state.value).toLowerCase())
-        );
-        filteredItems.length > 0
-          ? this.setState({
-              filteredItems
-            })
-          : this.setState({ filteredItems: [] });
-        return;
-      }
-    });
-  }
+      timer = window.setTimeout(() => {
+        async &&
+          async(value)
+            .then((items: Array<WithItemBaseType<SearchItemsType>>) =>
+              items.length > 0
+                ? setFilteredItems(
+                    items.map((item: WithItemBaseType<SearchItemsType>) => ({
+                      ...item
+                    }))
+                  )
+                : setFilteredItems([])
+            )
+            .catch(() => {});
+      }, debouncingTime);
+      return;
+    }
 
-  render() {
-    return (
-      <React.Fragment>
-        <input
-          ref={this.inputRef}
-          autoComplete={"off"}
-          type={"text"}
-          name={"captcha"}
-          value={this.state.value}
-          onChange={this.handleChange}
-          placeholder={this.props.placeholder || "Pesquisar..."}
-          className={`input ${(this.props.css && this.props.css.input) || ""}`}
-        />
+    if (value) {
+      const filteredItems = items.filter(
+        (item: WithItemBaseType<SearchItemsType>) =>
+          removeAccents(item.label)
+            .toLowerCase()
+            .match(removeAccents(value).toLowerCase())
+      );
+      filteredItems.length > 0
+        ? setFilteredItems(filteredItems)
+        : setFilteredItems([]);
+      return;
+    }
+  };
 
-        <SearchableList<SearchItemsType | {}>
-          items={this.state.filteredItems}
-          option={this.props.option}
-          onSelectedItem={this.props.onSelectedItem}
-          className={(this.props.css && this.props.css.list) || ""}
-          disable={this.props.disable}
-          noOptionsMessage={this.props.noOptionsMessage}
-        />
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <input
+        ref={inputRef}
+        autoComplete={"off"}
+        type={"text"}
+        name={"captcha"}
+        value={value}
+        onChange={handleChange}
+        placeholder={placeholder || "Pesquisar..."}
+        className={`input ${(css && css.input) || ""}`}
+      />
+
+      <SearchableList<SearchItemsType | {}>
+        items={filteredItems}
+        option={option}
+        onSelectedItem={onSelectedItem}
+        className={(css && css.list) || ""}
+        disable={disable}
+        noOptionsMessage={noOptionsMessage}
+      />
+    </React.Fragment>
+  );
 }

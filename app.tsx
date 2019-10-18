@@ -1,5 +1,5 @@
 import React from "react";
-import { SelectSearchable } from "./select/selectSearchable";
+import SelectSearchable from "./select/selectSearchable";
 import { ItemBaseType } from "./select/searchableList";
 import ReactDOM from "react-dom";
 
