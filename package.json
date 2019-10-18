@@ -1,12 +1,23 @@
 {
   "name": "scrushable",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/main.min.js",
   "repository": "git@github.com:gabecar/scrushable.git",
   "author": "Gabriel Carvalho <gabrielcarvalho70@gmail.com>",
+  "contributors": [
+    "Laryssa Magalhães <laryssamagal@gmail.com>, (https://github.com/laryssamagalhaes)",
+    "Gabriel Prates <gabsprates@gmail.com>, (https://github.com/gabsprates)"
+  ],
+  "keywords": [
+    "react select",
+    "select",
+    "searchable",
+    "list"
+  ],
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --config webpack.config.js"
+    "dev": "NODE_ENV=development webpack-dev-server --config webpack.config.js",
+    "build": "NODE_ENV=production webpack --config webpack.config.js"
   },
   "dependencies": {
     "@babel/core": "^7.6.4",

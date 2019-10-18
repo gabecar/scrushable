@@ -18,8 +18,8 @@ const config = {
   output: {
     path: CLIENT_PATH,
     publicPath: "/",
-    filename: "[name][contenthash:8].js",
-    chunkFilename: "[name][contenthash:8].js"
+    filename: "[name].min.js",
+    chunkFilename: "[name].min.js"
   },
   module: {
     rules: [
@@ -78,11 +78,7 @@ const devConfig = {
 };
 
 const prodConfig = {
-  mode: "production",
-  output: {
-    filename: "[name][contenthash:9].js",
-    chunkFilename: "[name][contenthash:9].js"
-  }
+  mode: "production"
 };
 
 /**
