@@ -76,11 +76,11 @@ export default function SearchableList<SearchItemsType>({
   };
 
   const classesName = (value: string) => {
-    return `label ${
+    return `searchableList-item ${
       focus === items.map((item: ItemBaseType) => item.value).indexOf(value)
-        ? "labelSelected"
+        ? "searchableList-item--selected"
         : ""
-    } ${itemHover ? "labelFocus" : ""}`;
+    } ${itemHover ? "searchableList-item--focus" : ""}`;
   };
 
   const Option: any = option;

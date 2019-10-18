@@ -101,7 +101,7 @@ export default function SelectSearchable<SearchItemsType>({
         value={value}
         onChange={handleChange}
         placeholder={placeholder || "Pesquisar..."}
-        className={`input ${(css && css.input) || ""}`}
+        className={`searchableInput ${(css && css.input) || ""}`}
       />
 
       <SearchableList<SearchItemsType | {}>
