@@ -1,5 +1,29 @@
 # Scrushable
 
-Componente mínimo de select para ReactJS.
+[![npm version](https://img.shields.io/npm/v/scrushable)](https://www.npmjs.com/package/scrushable)
+[![npm downloads](https://img.shields.io/npm/dt/scrushable)](https://www.npmjs.com/package/scrushable)
+[![Build Status](https://travis-ci.org/gabecar/scrushable.svg?branch=master)](https://travis-ci.org/gabecar/scrushable)
 
-Ao usar um componente similar foi notado que o mesmo possuía muitas funcionalidades não essenciais. O objetivo desse componente é oferecer as mesmas funcionalidades de forma modular e em alta perfomance.
+## Installation
+
+```
+yarn add scrushable
+```
+
+## Motivation
+While using a similar library, we noticed that we it many non-essential features. This library objective is to provide only the essential features modularly and with high performance.
+
+## Usage
+
+.
+
+## Contributing
+
+This is how you can spin up the dev environment:
+
+```
+git clone https://github.com/gabecar/scrushable
+cd scrushable
+yarn
+yarn storybook
+```
