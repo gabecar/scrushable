@@ -17,7 +17,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf public && tsc --outDir public",
+    "build": "rm -rf public && tsc --outDir public && rm -rf public/test && rm public/select/*.test.* && mv public/select/* public && rm -rf public/select",
     "test": "jest --config=./test/jest.config.js"
   },
   "dependencies": {
