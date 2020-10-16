@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "target": "esnext",
+    "target": "es5",
     "module": "esnext",
     "esModuleInterop": true,
     "moduleResolution": "node",
@@ -21,14 +21,7 @@
     ],
     "allowJs": true,
     "typeRoots": ["./node_modules/@types"],
-    "rootDirs": ["assets"],
     "downlevelIteration": true
   },
-  "exclude": [
-    "node_modules",
-    "config",
-    "server/static",
-    "assets/js/test",
-    "webpack.config.js"
-  ]
+  "exclude": ["node_modules"]
 }

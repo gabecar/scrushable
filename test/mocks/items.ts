@@ -1,7 +1,4 @@
-import React from "react";
-import SelectSearchable from "./select/selectSearchable";
-import { ItemBaseType } from "./select/searchableList";
-import ReactDOM from "react-dom";
+import { ItemBaseType } from "../../select/searchableList";
 
 export const items: Array<ItemBaseType> = [
   { label: "Forró", value: "forro" },
@@ -62,8 +59,3 @@ export const items: Array<ItemBaseType> = [
   { label: "Thrash Metal", value: "thrash-metal" },
   { label: "New Age", value: "new-age" },
 ];
-
-ReactDOM.render(
-  <SelectSearchable items={items} onSelectedItem={() => {}} hasSearch={true} />,
-  document.body
-);
