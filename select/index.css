@@ -37,7 +37,7 @@ ul {
   border: 0;
   padding: 0;
   margin: 0;
-  width: 184px;
+  width: 100%;
   font-size: 14px;
   font-family: var(--openSans);
 }
