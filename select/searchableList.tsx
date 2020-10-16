@@ -21,10 +21,7 @@ type PropsType<I> = {
   option?: (props: OptionItemType<I>) => JSX.Element;
   onSelectedItem: (item: WithItemBaseType<I>) => void;
   disable?: (item: WithItemBaseType<I>) => boolean;
-  itemToSelect?: (
-    items: Array<WithItemBaseType<I>>,
-    value: WithItemBaseType<I>
-  ) => number;
+  itemToSelect?: (items: Array<WithItemBaseType<I>>, value: WithItemBaseType<I>) => number;
 };
 
 export default function SearchableList<SearchItemsType>({
@@ -37,7 +34,6 @@ export default function SearchableList<SearchItemsType>({
   itemToSelect,
 }: PropsType<SearchItemsType>) {
   const [focus, setFocus] = useState<number>(0);
-  const [itemHover, setItemHover] = useState<boolean>(true);
 
   const refList = useRef<HTMLDivElement>(null);
   const refItemList = useRef<HTMLLIElement>(null);
@@ -55,7 +51,6 @@ export default function SearchableList<SearchItemsType>({
 
         if (listHeight && listItemHeight) {
           setFocus(focus);
-          setItemHover(false);
         }
       };
 
@@ -75,60 +70,44 @@ export default function SearchableList<SearchItemsType>({
         !disabled && onSelectedItem(items[focus]);
       }
     };
-    const onMouseMove = () => {
-      setItemHover(true);
-    };
+
     window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("mousemove", onMouseMove);
 
     return () => {
       window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("mousemove", onMouseMove);
     };
-  }, [focus, itemHover, items, disable, onSelectedItem]);
+  }, [focus, items, disable, onSelectedItem]);
 
-  const classesName = (item: WithItemBaseType<SearchItemsType>) => {
+  const classNames = (item: WithItemBaseType<SearchItemsType>) => {
     const itemSelected = itemToSelect
       ? itemToSelect(items, item)
       : items.map((item: ItemBaseType) => item.value).indexOf(item.value);
-    return `selectSearchable-label ${
-      focus === itemSelected ? "selectSearchable-labelSelected" : ""
-    } ${itemHover ? "selectSearchable-labelFocus" : ""}`;
+
+    return `searchableList-label ${focus === itemSelected ? "searchableList-label--selected" : ""}`;
   };
 
   return (
-    <div
-      ref={refList}
-      className={`searchableListScroll ${css ? css.scroll : ""}`}
-    >
+    <div ref={refList} className={`searchableList-scroll ${css ? css.scroll : ""}`}>
       <ul className={`searchableList ${css ? css.list : ""}`}>
         {items.length > 0 ? (
-          items.map(
-            (item: WithItemBaseType<SearchItemsType>, index: number) => {
-              const disabled = disable && disable(item);
-              return (
-                <li
-                  ref={index === focus ? refItemList : null}
-                  className={`${classesName(item)} ${css ? css.item : ""}`}
-                  key={item.value}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    !disabled && onSelectedItem(item);
-                  }}
-                >
-                  {Option ? (
-                    <Option {...item} focused={index === focus} />
-                  ) : (
-                    <div>{item.label}</div>
-                  )}
-                </li>
-              );
-            }
-          )
+          items.map((item: WithItemBaseType<SearchItemsType>, index: number) => {
+            const disabled = disable && disable(item);
+            return (
+              <li
+                ref={index === focus ? refItemList : null}
+                className={`${classNames(item)} ${css ? css.item : ""}`}
+                key={item.value}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  !disabled && onSelectedItem(item);
+                }}
+              >
+                {Option ? <Option {...item} focused={index === focus} /> : <div>{item.label}</div>}
+              </li>
+            );
+          })
         ) : (
-          <span
-            className={`${css ? css.notFound : "searchableList-notFound "}`}
-          >
+          <span className={`${css ? css.notFound : "searchableList-notFound"}`}>
             {noOptionsMessage || ""}
           </span>
         )}

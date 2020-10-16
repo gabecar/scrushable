@@ -10,6 +10,17 @@
 ul {
   margin: 0;
   padding: 0;
+  list-style: none;
+}
+
+.selectSearchable-scroll {
+  height: 500px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.selectSearchable-scroll--withInput {
+  margin-top: 16px;
 }
 
 .selectSearchable-inputContainer {
@@ -25,14 +36,6 @@ ul {
   box-sizing: border-box;
 }
 
-.selectSearchable-labelFocus:hover {
-  background-color: var(--grey-4);
-}
-
-.selectSearchable-labelSelected {
-  background-color: var(--grey-4);
-}
-
 .selectSearchable-input {
   border: 0;
   padding: 0;
@@ -46,11 +49,11 @@ ul {
   color: var(--grey-2);
 }
 
-.searchableList-scroll--withInput {
-  margin-top: 16px;
+.searchableList {
+  margin-right: 16px;
 }
 
-.selectSearchable-label {
+.searchableList-label {
   cursor: default;
   font-size: 16px;
   padding: 8px 16px;
@@ -60,16 +63,9 @@ ul {
   border-radius: 8px;
 }
 
-.searchableListScroll {
-  height: 500px;
-  overflow: hidden;
-  overflow-y: scroll;
-}
-
-.searchableList {
-  padding: 0;
-  margin-right: 16px;
-  list-style: none;
+.searchableList-label--selected,
+.searchableList-label:hover {
+  background-color: var(--grey-4);
 }
 
 .searchableList-notFound {
