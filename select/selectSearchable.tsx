@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./index.css";
 import SearchableList, {
   WithItemBaseType,
-  OptionItemType,
+  OptionItemType
 } from "./searchableList";
 // import { removeAccents } from "../lib/removeAccents";
 
@@ -50,7 +50,7 @@ export default function SelectSearchable<SearchItemsType>({
   rightIcon,
   leftIcon,
   hasSearch,
-  inputValue,
+  inputValue
 }: PropsType<SearchItemsType>) {
   const [filteredItems, setFilteredItems] = useState<
     Array<WithItemBaseType<SearchItemsType>>
@@ -88,7 +88,7 @@ export default function SelectSearchable<SearchItemsType>({
               items.length > 0
                 ? setFilteredItems(
                     items.map((item: WithItemBaseType<SearchItemsType>) => ({
-                      ...item,
+                      ...item
                     }))
                   )
                 : setFilteredItems([])
@@ -139,7 +139,7 @@ export default function SelectSearchable<SearchItemsType>({
             css ? css.scroll : ""
           }`,
           item: css ? css.item : "",
-          notFound: css ? css.notFound : "",
+          notFound: css ? css.notFound : ""
         }}
         disable={disable}
         noOptionsMessage={noOptionsMessage}
