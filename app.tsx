@@ -60,10 +60,10 @@ export const items: Array<ItemBaseType> = [
   { label: "Metal Melódico", value: "metal-melodico" },
   { label: "Grunge", value: "grunge" },
   { label: "Thrash Metal", value: "thrash-metal" },
-  { label: "New Age", value: "new-age" }
+  { label: "New Age", value: "new-age" },
 ];
 
 ReactDOM.render(
-  <SelectSearchable items={items} onSelectedItem={() => {}} />,
+  <SelectSearchable items={items} onSelectedItem={() => {}} hasSearch={true} />,
   document.body
 );
