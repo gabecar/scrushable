@@ -1,0 +1,66 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+      "project": "tsconfig.json",
+      "sourceType": "module",
+      "ecmaVersion": 10
+  },
+  "plugins": ["@typescript-eslint", "react", "react-hooks"],
+  "extends": ["prettier", "prettier/@typescript-eslint"],
+  "ignorePatterns": ["mock.tsx", "*.stories.tsx", "*.d.ts", "constants.tsx"],
+  "rules": {
+      "camelcase": "off",
+      "no-magic-numbers": "off",
+      "@typescript-eslint/camelcase": [
+          "error",
+          { "properties": "never", "ignoreDestructuring": true }
+      ],
+      "@typescript-eslint/no-magic-numbers": [
+          "error",
+          {
+              "ignore": [-1, 0, 1],
+              "ignoreEnums": true,
+              "ignoreReadonlyClassProperties": true
+          }
+      ],
+      "@typescript-eslint/class-name-casing": "error",
+      "@typescript-eslint/member-delimiter-style": [
+          "error",
+          {
+              "multiline": {
+                  "delimiter": "semi",
+                  "requireLast": true
+              },
+              "singleline": {
+                  "delimiter": "semi",
+                  "requireLast": false
+              }
+          }
+      ],
+      "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/prefer-namespace-keyword": "error",
+      "@typescript-eslint/type-annotation-spacing": "error",
+      "default-case": "error",
+      "eqeqeq": ["error", "smart"],
+      "id-match": "error",
+      "no-console": [
+          "error",
+          {
+              "allow": ["warn", "table", "debug", "info", "error", "Console", "context"]
+          }
+      ],
+      "no-debugger": "error",
+      "no-empty": "off",
+      "no-eval": "error",
+      "no-trailing-spaces": "error",
+      "no-unsafe-finally": "error",
+      "no-var": "error",
+      "react/jsx-boolean-value": ["error", "always"],
+      "react/jsx-key": ["error", { "checkFragmentShorthand": true }],
+      "react/no-array-index-key": "warn",
+      "react/jsx-no-bind": ["error", { "allowArrowFunctions": true }],
+      "react/no-string-refs": "error",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "error"
+  }
+}

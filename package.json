@@ -21,11 +21,12 @@
     "build": "rm -rf public && tsc --outDir public && rm -rf public/test && rm public/select/*.test.* && mv public/select/* public && rm -rf public/select",
     "test": "jest --config=./test/jest.config.js",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc.json 'select/*.tsx'"
   },
   "dependencies": {
     "react": "^16.14.0",
-    "react-dom": "^16.14.0",   
+    "react-dom": "^16.14.0",
     "typescript": "^4.0.3"
   },
   "devDependencies": {
@@ -36,11 +37,19 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@types/jest": "^26.0.14",
-    "@types/testing-library__react": "^10.2.0",
     "@types/react": "^16.9.52",
     "@types/react-dom": "^16.9.8",
+    "@types/testing-library__react": "^10.2.0",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.4",
+    "eslint-plugin-react-hooks": "^4.1.2",
     "jest": "^26.5.3",
     "jest-css-modules-transform": "^4.0.1",
+    "prettier": "^2.1.2",
     "ts-jest": "^26.4.1"
   }
 }
