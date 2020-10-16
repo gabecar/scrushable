@@ -7,7 +7,8 @@
   "contributors": [
     "Laryssa Magalhães <laryssamagal@gmail.com>, (https://github.com/laryssamagalhaes)",
     "Gabriel Prates <gabsprates@gmail.com>, (https://github.com/gabsprates)",
-    "Artur Bani <arturbani@gmail.com>, (https://github.com/arturbani)"
+    "Artur Bani <arturbani@gmail.com>, (https://github.com/arturbani)",
+    "Carolina Sampaio <carolina.sampaio75@gmail.com>, (https://github.com/carolinasamp)"
   ],
   "keywords": [
     "react select",
@@ -18,7 +19,9 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf public && tsc --outDir public && rm -rf public/test && rm public/select/*.test.* && mv public/select/* public && rm -rf public/select",
-    "test": "jest --config=./test/jest.config.js"
+    "test": "jest --config=./test/jest.config.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "react": "^16.14.0",
@@ -26,14 +29,23 @@
     "typescript": "^4.0.3"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.0.26",
+    "@storybook/addon-essentials": "^6.0.26",
+    "@storybook/addon-links": "^6.0.26",
+    "@storybook/react": "^6.0.26",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@types/jest": "^26.0.14",
     "@types/testing-library__react": "^10.2.0",
     "@types/react": "^16.9.52",
     "@types/react-dom": "^16.9.8",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "jest": "^26.5.3",
     "jest-css-modules-transform": "^4.0.1",
-    "ts-jest": "^26.4.1"
+    "ts-jest": "^26.4.1",
+    "react-is": "^16.13.1",
+    "ts-loader": "^6.2.0"
   }
 }
