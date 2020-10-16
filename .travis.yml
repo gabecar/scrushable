@@ -4,5 +4,6 @@ os:
 node_js:
   - 'lts/*'
 script:
+  - yarn lint
   - yarn test
   - yarn build
