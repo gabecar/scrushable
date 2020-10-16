@@ -21,10 +21,8 @@ type PropsType<I> = {
   option?: (props: OptionItemType<I>) => JSX.Element;
   onSelectedItem: (item: WithItemBaseType<I>) => void;
   disable?: (item: WithItemBaseType<I>) => boolean;
-  itemToSelect?: (
-    items: Array<WithItemBaseType<I>>,
-    value: WithItemBaseType<I>
-  ) => number;
+  itemToSelect?: (items: Array<WithItemBaseType<I>>, value: WithItemBaseType<I>) => number;
+  inputValue?: string;
 };
 
 export default function SearchableList<SearchItemsType>({
@@ -35,6 +33,7 @@ export default function SearchableList<SearchItemsType>({
   onSelectedItem,
   disable,
   itemToSelect,
+  inputValue,
 }: PropsType<SearchItemsType>) {
   const [focus, setFocus] = useState<number>(0);
   const [itemHover, setItemHover] = useState<boolean>(true);
@@ -87,6 +86,12 @@ export default function SearchableList<SearchItemsType>({
     };
   }, [focus, itemHover, items, disable, onSelectedItem]);
 
+  useEffect(() => {
+    if (focus > items.length) {
+      setFocus(0);
+    }
+  }, [focus, items]);
+
   const classesName = (item: WithItemBaseType<SearchItemsType>) => {
     const itemSelected = itemToSelect
       ? itemToSelect(items, item)
@@ -96,39 +101,45 @@ export default function SearchableList<SearchItemsType>({
     } ${itemHover ? "selectSearchable-labelFocus" : ""}`;
   };
 
+  const accessibilityText = () => {
+    if (focus < items.length || items.length === 0) {
+      return (
+        <span aria-live="polite" className="accessibilityText">
+          <span>
+            {items.length > 0
+              ? `opção ${focus + 1} de ${items.length} ${items[focus].label}`
+              : `${noOptionsMessage} para ${inputValue}`}
+          </span>
+        </span>
+      );
+    }
+    return null;
+  };
+
   return (
-    <div
-      ref={refList}
-      className={`searchableListScroll ${css ? css.scroll : ""}`}
-    >
-      <ul className={`searchableList ${css ? css.list : ""}`}>
+    <div ref={refList} className={`searchableListScroll ${css ? css.scroll : ""}`}>
+      {accessibilityText()}
+      <ul className={`searchableList ${css ? css.list : ""}`} role="listbox">
         {items.length > 0 ? (
-          items.map(
-            (item: WithItemBaseType<SearchItemsType>, index: number) => {
-              const disabled = disable && disable(item);
-              return (
-                <li
-                  ref={index === focus ? refItemList : null}
-                  className={`${classesName(item)} ${css ? css.item : ""}`}
-                  key={item.value}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    !disabled && onSelectedItem(item);
-                  }}
-                >
-                  {Option ? (
-                    <Option {...item} focused={index === focus} />
-                  ) : (
-                    <div>{item.label}</div>
-                  )}
-                </li>
-              );
-            }
-          )
+          items.map((item: WithItemBaseType<SearchItemsType>, index: number) => {
+            const disabled = disable && disable(item);
+            return (
+              <li
+                ref={index === focus ? refItemList : null}
+                className={`${classesName(item)} ${css ? css.item : ""}`}
+                key={item.value}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  !disabled && onSelectedItem(item);
+                }}
+                role="option"
+              >
+                {Option ? <Option {...item} focused={index === focus} /> : <div>{item.label}</div>}
+              </li>
+            );
+          })
         ) : (
-          <span
-            className={`${css ? css.notFound : "searchableList-notFound "}`}
-          >
+          <span className={`${css ? css.notFound : "searchableList-notFound"}`}>
             {noOptionsMessage || ""}
           </span>
         )}

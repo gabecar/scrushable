@@ -1,10 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import "./index.css";
-import SearchableList, {
-  WithItemBaseType,
-  OptionItemType
-} from "./searchableList";
+import SearchableList, { WithItemBaseType, OptionItemType } from "./searchableList";
 // import { removeAccents } from "../lib/removeAccents";
 
 export type SelectSearchableCSSType = {
@@ -25,10 +22,7 @@ type PropsType<I> = {
   async?: (value: string) => Promise<any>;
   onSelectedItem: (item: WithItemBaseType<I>) => void;
   disable?: (item: WithItemBaseType<I>) => boolean;
-  itemToSelect?: (
-    items: Array<WithItemBaseType<I>>,
-    value: WithItemBaseType<I>
-  ) => number;
+  itemToSelect?: (items: Array<WithItemBaseType<I>>, value: WithItemBaseType<I>) => number;
   hasSearch?: boolean;
   inputValue?: string;
   leftIcon?: JSX.Element;
@@ -50,11 +44,11 @@ export default function SelectSearchable<SearchItemsType>({
   rightIcon,
   leftIcon,
   hasSearch,
-  inputValue
+  inputValue,
 }: PropsType<SearchItemsType>) {
-  const [filteredItems, setFilteredItems] = useState<
-    Array<WithItemBaseType<SearchItemsType>>
-  >(items);
+  const [filteredItems, setFilteredItems] = useState<Array<WithItemBaseType<SearchItemsType>>>(
+    items
+  );
   const [value, setValue] = useState<string>(inputValue || "");
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -88,7 +82,7 @@ export default function SelectSearchable<SearchItemsType>({
               items.length > 0
                 ? setFilteredItems(
                     items.map((item: WithItemBaseType<SearchItemsType>) => ({
-                      ...item
+                      ...item,
                     }))
                   )
                 : setFilteredItems([])
@@ -99,9 +93,8 @@ export default function SelectSearchable<SearchItemsType>({
       return;
     }
 
-    const filteredItems = items.filter(
-      (item: WithItemBaseType<SearchItemsType>) =>
-        item.label.toLowerCase().includes(value.toLowerCase())
+    const filteredItems = items.filter((item: WithItemBaseType<SearchItemsType>) =>
+      item.label.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredItems(filteredItems);
 
@@ -125,6 +118,8 @@ export default function SelectSearchable<SearchItemsType>({
             onChange={handleChange}
             placeholder={placeholder || ""}
             className={"selectSearchable-input"}
+            aria-autocomplete="list"
+            aria-label="Navegue pelas setas do teclado. Pressione enter para selecionar uma opção e escape para fechar o select"
           />
           {rightIcon}
         </div>
@@ -135,15 +130,14 @@ export default function SelectSearchable<SearchItemsType>({
         onSelectedItem={onSelectedItem}
         css={{
           list: css ? css.list : "",
-          scroll: `${hasSearch ? "searchableList-scroll--withInput" : ""} ${
-            css ? css.scroll : ""
-          }`,
+          scroll: `${hasSearch ? "searchableList-scroll--withInput" : ""} ${css ? css.scroll : ""}`,
           item: css ? css.item : "",
-          notFound: css ? css.notFound : ""
+          notFound: css ? css.notFound : "",
         }}
         disable={disable}
         noOptionsMessage={noOptionsMessage}
         itemToSelect={itemToSelect}
+        inputValue={hasSearch ? value : ""}
       />
     </div>
   );

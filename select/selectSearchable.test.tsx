@@ -14,7 +14,7 @@ describe("Component: SelectSearchable", () => {
           noOptionsMessage="Nenhuma opção encontrada"
         />
       );
-      const childrens = getByRole("list").children;
+      const childrens = getByRole("listbox").children;
       const input = getByRole("textbox") as HTMLInputElement;
 
       expect(childrens.length).toEqual(items.length);
