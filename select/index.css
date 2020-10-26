@@ -26,7 +26,7 @@ ul {
 }
 
 .selectSearchable-labelFocus:hover {
-  background-color: var(--grey-4);
+  background-color: var(--grey-3);
 }
 
 .selectSearchable-labelSelected {
@@ -78,4 +78,16 @@ ul {
   padding-bottom: 10px 0;
   text-align: center;
   color: var(--grey);
+}
+
+.accessibilityText {
+  z-index: 9999;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
 }

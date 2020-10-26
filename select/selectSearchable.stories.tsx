@@ -30,4 +30,5 @@ SearchableWithPlaceholder.args = {
   onSelectedItem: () => {},
   hasSearch: true,
   placeholder: "Valor esperado",
+  noOptionsMessage: "Nenhuma opção encontrada",
 };
