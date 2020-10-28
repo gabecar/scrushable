@@ -35,7 +35,7 @@ export default function SearchableList<SearchItemsType>({
   itemToSelect,
   inputValue,
 }: PropsType<SearchItemsType>) {
-  const [focus, setFocus] = useState<number>(0);
+  const [focus, setFocus] = useState<number>(-1);
   const [itemHover, setItemHover] = useState<boolean>(true);
 
   const refList = useRef<HTMLDivElement>(null);
@@ -43,6 +43,7 @@ export default function SearchableList<SearchItemsType>({
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
+      if (focus < 0) setFocus(0);
       e.stopPropagation();
       const disabled = disable && disable(items[focus]);
 
@@ -102,7 +103,7 @@ export default function SearchableList<SearchItemsType>({
   };
 
   const accessibilityText = () => {
-    if (focus < items.length || items.length === 0) {
+    if ((focus >= 0 && focus < items.length) || items.length === 0) {
       return (
         <span aria-live="polite" className="accessibilityText">
           <span>
