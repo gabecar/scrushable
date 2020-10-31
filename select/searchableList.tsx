@@ -52,10 +52,16 @@ export default function SearchableList<SearchItemsType>({
 
         const listHeight = refList.current.offsetHeight;
         const listItemHeight = refItemList.current.offsetHeight;
+        const two = 2;
 
         if (listHeight && listItemHeight) {
           setFocus(focus);
           setItemHover(false);
+        }
+
+        if (refItemList.current && refList.current) {
+          const itemToScroll = Math.floor(listHeight / listItemHeight / two);
+          refList.current.scrollTop = (focus - itemToScroll) * refItemList.current.offsetHeight;
         }
       };
 
