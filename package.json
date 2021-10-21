@@ -1,6 +1,6 @@
 {
   "name": "scrushable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/main.min.js",
   "repository": "git@github.com:gabecar/scrushable.git",
   "author": "Gabriel Carvalho <gabrielcarvalho70@gmail.com>",
